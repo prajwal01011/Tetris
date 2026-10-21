@@ -8,4 +8,4 @@ class Block:
         self.colors=Colors.get_cell_colors()
 
     def draw(self,screen):
-        
+        tiles = self.cells[self.rotation_state]
