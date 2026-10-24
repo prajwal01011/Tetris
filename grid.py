@@ -17,6 +17,11 @@ class Grid:
             
             print()
     
+    def is_inside(self, row, column):
+        if row >= 0 and row < self.num_rows and column >=0 and column < self.num_columns:
+            return True
+        return False
+        
 
     def draw(self,screen):
         for row in range(self.num_rows):
