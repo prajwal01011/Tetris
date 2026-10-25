@@ -41,6 +41,10 @@ class Game:
                 return False
         return True
 
+    def rotate(self):
+        self.current_shape.rotate()
+        if self.shape_inside() == False:
+            self.current_shape.undo_rotation()
 
     def draw(self, screen):
         self.grid.draw(screen)
