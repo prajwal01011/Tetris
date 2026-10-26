@@ -8,6 +8,7 @@ class Game:
         self.shapes =[IBlock(),JBlock(),LBlock(),OBlock(),SBlock(),TBlock(),ZBlock()]
         self.current_shape = self.get_random_shape()
         self.next_shape = self.get_random_shape()
+        self.Game_Over = False
 
     def get_random_shape(self):
         if len (self.shapes) == 0:
@@ -40,6 +41,15 @@ class Game:
         self.current_shape = self.next_shape
         self.next_shape = self.get_random_shape()
         self.grid.clear_full_rows()
+        if self.shape_fits() == False:
+            self.Game_Over = True
+    
+    def reset(self):
+        self.grid.reset()
+        self.shapes =[IBlock(),JBlock(),LBlock(),OBlock(),SBlock(),TBlock(),ZBlock()]
+        self.current_shape = self.get_random_shape()
+        self.next_shape = self.get_random_shape()
+
 
     def shape_fits(self):
         tiles = self.current_shape.get_cell_position()
