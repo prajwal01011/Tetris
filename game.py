@@ -18,12 +18,12 @@ class Game:
 
     def move_left(self):
         self.current_shape.move(0, -1)
-        if self.shape_inside()== False or self.shape_fits() == False::
+        if self.shape_inside()== False or self.shape_fits() == False:
             self.current_shape.move(0, 1)
 
     def move_right(self):
         self.current_shape.move(0, 1)
-        if self.shape_inside()== False or self.shape_fits() == False::
+        if self.shape_inside()== False or self.shape_fits() == False:
             self.current_shape.move(0, -1)
 
 
@@ -39,7 +39,7 @@ class Game:
             self.grid.grid[position.row] [position.column] = self.current_shape.id
         self.current_shape = self.next_shape
         self.next_shape = self.get_random_shape()
-
+        self.grid.clear_full_rows()
 
     def shape_fits(self):
         tiles = self.current_shape.get_cell_position()
@@ -60,7 +60,7 @@ class Game:
 
     def rotate(self):
         self.current_shape.rotate()
-        if self.shape_inside() == False or self.shape_fits() == False::
+        if self.shape_inside() == False or self.shape_fits() == False:
             self.current_shape.undo_rotation()
 
     def draw(self, screen):
