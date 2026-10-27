@@ -1,6 +1,7 @@
 from grid import Grid
 from shapes import *
 import random
+import pygame
 
 class Game:
     def __init__(self):
@@ -10,6 +11,12 @@ class Game:
         self.next_shape = self.get_random_shape()
         self.Game_Over = False
         self.score = 0
+        self.rotate_sound = pygame.mixer.Sound("sounds/rotate.ogg")
+        self.clear_sound = pygame.mixer.Sound("sounds/clear.ogg")
+        self.Game_Over_sound = pygame.mixer.Sound("sounds/game_over.ogg")
+        
+        pygame.mixer.music.load("sounds/music.ogg")
+        pygame.mixer.music.play(-1)
 
     def update_score(self,lines_cleared,move_down_points):
         if lines_cleared == 1:
@@ -51,9 +58,12 @@ class Game:
         self.current_shape = self.next_shape
         self.next_shape = self.get_random_shape()
         rows_cleared = self.grid.clear_full_rows()
-        self.update_score(rows_cleared,0)
+        if rows_cleared > 0:
+            self.clear_sound.play()
+            self.update_score(rows_cleared,0)
         if self.shape_fits() == False:
             self.Game_Over = True
+            self.Game_Over_sound.play()
     
     def reset(self):
         self.grid.reset()
@@ -83,7 +93,15 @@ class Game:
         self.current_shape.rotate()
         if self.shape_inside() == False or self.shape_fits() == False:
             self.current_shape.undo_rotation()
+        else:
+            self.rotate_sound.play()
 
     def draw(self, screen):
         self.grid.draw(screen)
-        self.current_shape.draw(screen)
+        self.current_shape.draw(screen, 11, 11)
+        if self.next_shape.id == 3:
+            self.next_shape.draw(screen, 255, 290)
+        elif self.next_shape.id ==4:
+            self.next_shape.draw(screen, 255, 280)
+        else:
+            self.next_shape.draw(screen, 270, 270)

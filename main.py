@@ -50,6 +50,7 @@ while True:
     screen.blit(next_surface, (357, 180, 50, 50))
     if game.Game_Over == True:
         screen.blit(Game_Over_Surface, (320, 450, 50, 50))
+        
     
     pygame.draw.rect(screen, Colors.light_blue, score_rect, 0, 10) # 0,10 are to make rounded corner of rectangle
     screen.blit(score_value_surface, score_value_surface.get_rect(centerx = score_rect.centerx,
