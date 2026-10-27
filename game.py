@@ -9,6 +9,16 @@ class Game:
         self.current_shape = self.get_random_shape()
         self.next_shape = self.get_random_shape()
         self.Game_Over = False
+        self.score = 0
+
+    def update_score(self,lines_cleared,move_down_points):
+        if lines_cleared == 1:
+            self.score += 100
+        elif lines_cleared == 2:
+            self.score += 300
+        elif lines_cleared >= 3:
+            self.score += 500
+        self.score += move_down_points
 
     def get_random_shape(self):
         if len (self.shapes) == 0:
@@ -40,7 +50,8 @@ class Game:
             self.grid.grid[position.row] [position.column] = self.current_shape.id
         self.current_shape = self.next_shape
         self.next_shape = self.get_random_shape()
-        self.grid.clear_full_rows()
+        rows_cleared = self.grid.clear_full_rows()
+        self.update_score(rows_cleared,0)
         if self.shape_fits() == False:
             self.Game_Over = True
     
@@ -49,7 +60,7 @@ class Game:
         self.shapes =[IBlock(),JBlock(),LBlock(),OBlock(),SBlock(),TBlock(),ZBlock()]
         self.current_shape = self.get_random_shape()
         self.next_shape = self.get_random_shape()
-
+        self.score = 0
 
     def shape_fits(self):
         tiles = self.current_shape.get_cell_position()
